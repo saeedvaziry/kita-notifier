@@ -1,0 +1,25 @@
+name: run
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 9 * * *'
+
+jobs:
+  run:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make init
+
+      - name: Run
+        run: make start
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
