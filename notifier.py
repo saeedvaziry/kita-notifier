@@ -6,17 +6,19 @@ import os
 load_dotenv(".env")
 
 
-def notify(msg: str):
-    requests.post('https://api.telegram.org/bot%token/sendMessage'.replace('%token', os.environ.get('BOT_TOKEN')), json={
+def notify(message: str):
+    url = 'https://api.telegram.org/bot%token/sendMessage'.replace('%token', os.environ.get('BOT_TOKEN'))
+    requests.post(url, json={
         'chat_id': '89449236',
-        'text': 'Kita Navigator: ' + "\n" + msg
+        'text': 'Kita Navigator: ' + "\n" + message
     })
-    print(msg)
+    print(message)
 
 
 with requests.Session() as s:
     s.headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/51.0.2704.103 Safari/537.36 '
     }
     s.get(os.environ.get('BASE_URL') + '/login/')
     login = s.post(os.environ.get('BASE_URL') + '/login/', data={
@@ -34,7 +36,7 @@ with requests.Session() as s:
         for r in rows:
             columns = r.findChildren('td')
             for i, c in enumerate(columns):
-                if (i == 1):
+                if i == 1:
                     value = "".join(line.strip() for line in c.string.split("\n"))
                     msg += value + "\n"
 
