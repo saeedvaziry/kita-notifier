@@ -30,8 +30,7 @@ with requests.Session() as s:
         '_token': csrf_token
     })
     soup = BeautifulSoup(login.content.decode('utf-8'), 'html.parser')
-    table = soup.find_all('i', attrs={'class': 'fal fa-user-friends'})
-    print(table[0])
+    table = soup.find_all('i', attrs={'class': 'fal fa-users'})
     msg = ''
     for t in table:
         msg += t.parent.text.strip() + "\n"
