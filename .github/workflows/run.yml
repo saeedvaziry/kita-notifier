@@ -2,9 +2,9 @@ name: run
 
 on:
   push:
-  pull_request:
-  schedule:
-    - cron: '0 9 * * *'
+#   pull_request:
+#   schedule:
+#     - cron: '0 9 * * *'
 
 jobs:
   run:
